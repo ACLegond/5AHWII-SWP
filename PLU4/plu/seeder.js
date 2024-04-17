@@ -1,6 +1,8 @@
 const { PrismaClient } = require('@prisma/client');
 const faker = require('faker');
 
+
+app.use(cors());
 const prisma = new PrismaClient();
 
 async function seedDatabase() {

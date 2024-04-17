@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zoo Informationen</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -16,19 +16,36 @@
         </div>
 
         <div class="section">
-            <div class="section-header">Zufälliger Zoo mit Abteilungen</div>
+            <div class="section-header">Zufälliger Zoo</div>
             <div class="section-content" id="randomZoo"></div>
         </div>
 
-        <div class="section">
-            <div class="section-header">Zufälliger Zoo mit Abteilungen und Tieren</div>
-            <div class="section-content" id="randomZooWithAnimals"></div>
-        </div>
-
-        <!-- Weitere Abschnitte für die anderen Abfragen hinzufügen -->
+        <!-- Weitere Abschnitte für weitere Abfragen hinzufügen -->
 
     </div>
 
-    <script src="query.js"></script>
+    <script>
+        window.onload = async function () {
+            try {
+                // Alle Zoos abrufen
+                const responseAllZoos = await fetch('http://localhost:3000/zoos');
+                const allZoos = await responseAllZoos.json();
+                const allZoosElement = document.getElementById('allZoos');
+                allZoos.forEach(zoo => {
+                    const p = document.createElement('p');
+                    p.textContent = `Land: ${zoo.land}, Stadt: ${zoo.stadt}, Adresse: ${zoo.adresse}, Baujahr: ${zoo.baujahr}`;
+                    allZoosElement.appendChild(p);
+                });
+
+                // Zufälligen Zoo abrufen
+                const responseRandomZoo = await fetch('http://localhost:3000/zoos/random');
+                const randomZoo = await responseRandomZoo.json();
+                const randomZooElement = document.getElementById('randomZoo');
+                randomZooElement.innerHTML = `<p>Land: ${randomZoo.land}, Stadt: ${randomZoo.stadt}, Adresse: ${randomZoo.adresse}, Baujahr: ${randomZoo.baujahr}</p>`;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    </script>
 </body>
 </html>
