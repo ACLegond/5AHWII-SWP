@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Zoo {
+  id        String    @id @default(cuid())
+  land      String
+  stadt     String
+  adresse   String
+  baujahr   DateTime
+  abteilungen Abteilung[]
+}
+
+model Abteilung {
+  id        String    @id @default(cuid())
+  name      String
+  zoo       Zoo       @relation(fields: [zooId], references: [id])
+  zooId     String
+  mitarbeiter Mitarbeiter[]
+  tiere     Tier[]
+}
+
+model Tier {
+  id          String    @id @default(cuid())
+  art         String
+  name        String
+  abteilung   Abteilung @relation(fields: [abteilungId], references: [id])
+  abteilungId String
+}
+
+model Mitarbeiter {
+  id           String        @id @default(cuid())
+  name         String
+  abteilungen Abteilung[]
+}
