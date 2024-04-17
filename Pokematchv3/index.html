@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pokemon Memory Match Game</title>
+    <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+    
+    <img id="picture" src="wallpaper-46.jpg" alt="Current Picture">
+    
+    <div class="container">
+        <h1>PokeMatch</h1>
+        
+        <header>
+            <!-- Board -->
+            <div id="Board">
+            
+            <h2 id ="highscore">Gewonnene Spiele: 0</h2>
+            <h2 id ="highestscore">highscore: 0</h2>
+            <h2 id ="truescore">Score: </h2>
+            <h2 id ="Winner"></h2>
+            <div id="bord">
+            <h2 id ="score">richtig: </h2>
+            <h2 id ="fails">falsch: </h2>
+            <h2 id="Player1">Player1: 0</h2>
+            <h2 id="Player2">Player2: 0</h2>
+            <h2 id="Playerturn">Wer ist dran:</h2>
+            <h2 id="Playerwon">Gewinnner?</h2> 
+       
+        </div>
+            
+           
+           <!-- Confetti 🎉 -->
+        <div class="confetti-container"></div>
+            
+        </div> <!-- Buttons Schwierigkeit -->
+        <div class="Schwierigkeit">
+            <h3>Wähle die Schwierigkeit aus</h3>
+            <button id="difficultbutton" onclick="changeDifficulty(1),resetGame()" style="background-color: rgb(7, 132, 7);">Einfach</button>
+            <button id="difficultbutton" onclick="changeDifficulty(2),resetGame()" style="background-color: rgb(203, 137, 13);">Mittel</button>
+            <button id="difficultbutton" onclick="changeDifficulty(3),resetGame()" style="background-color: rgb(161, 14, 14);">Schwer</button>
+
+        </div>
+        
+           <div class="Multiplayer">
+            <h2 id="Spielerwahl">Wähle Spielermodus aus:</h2>
+
+            <button id="multiplayerButton" onclick="resetGame(),changeMultiplayer(1)">1 Spieler</button>
+            <button id="multiplayerButton" onclick="changeMultiplayer(2),resetGame()">2 Spieler</button>
+
+            
+           </div>
+        
+        </header> <!-- Reset button -->
+        <button id="restbtn" onclick="resetGame(),changePicture()">Neustart</button>
+        <div id="game">    
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+        
