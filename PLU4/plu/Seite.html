@@ -5,15 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zoo Informationen</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .details-id {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Zoo Informationen</h1>
 
         <!-- Section for displaying all zoos -->
-        <div class="section">
+        <div class="section" id="allZoosSection">
             <div class="section-header">Alle Zoos</div>
             <div class="section-content" id="allZoos"></div>
+        </div>
+
+        <!-- Section for displaying details -->
+        <div class="section" id="detailsSection" style="display: none;">
+            <div class="section-header">Details</div>
+            <div class="section-content" id="detailsContent"></div>
+            <button onclick="showAllZoos()">Alle Zoos anzeigen</button>
         </div>
 
         <!-- Additional sections for other queries can be added here -->
@@ -38,7 +52,7 @@
                 } else {
                     allZoosData.forEach(zoo => {
                         const zooInfo = document.createElement('p');
-                        zooInfo.innerHTML = `<span class="label">Land:</span> ${zoo.land}, <span class="label">Stadt:</span> ${zoo.stadt}, <span class="label">Adresse:</span> ${zoo.adresse}, <span class="label">Baujahr:</span> ${zoo.baujahr.substring(zoo.baujahr.length - 4)}`;
+                        zooInfo.innerHTML = `<span class="label">Land:</span> ${zoo.land}, <span class="label">Stadt:</span> ${zoo.stadt}, <span class="label">Adresse:</span> ${zoo.adresse}, <span class="label">Baujahr:</span> ${zoo.baujahr.substring(0, 4)} <button class="details-button" onclick="showDetails('${zoo.land}', '${zoo.stadt}', '${zoo.adresse}', '${zoo.baujahr}', '${zoo.id}')">Details</button>`;
                         allZoosElement.appendChild(zooInfo);
                     });
                 }
@@ -48,6 +62,26 @@
                 errorElement.textContent = 'Fehler beim Abrufen der Daten. Bitte versuchen Sie es später erneut.';
                 allZoosElement.appendChild(errorElement);
             }
+        }
+
+        function showDetails(land, stadt, adresse, baujahr, id) {
+            const detailsSection = document.getElementById('detailsSection');
+            const detailsContent = document.getElementById('detailsContent');
+            
+            detailsContent.innerHTML = `<span class="details-id">ID: ${id}</span><br>
+                                         <p><span class="label">Land:</span> ${land}</p>
+                                         <p><span class="label">Stadt:</span> ${stadt}</p>
+                                         <p><span class="label">Adresse:</span> ${adresse}</p>
+                                         <p><span class="label">Baujahr:</span> ${baujahr}</p>`;
+            
+            detailsSection.style.display = 'block';
+            document.getElementById('allZoosSection').style.display = 'none';
+        }
+
+        function showAllZoos() {
+            const detailsSection = document.getElementById('detailsSection');
+            detailsSection.style.display = 'none';
+            document.getElementById('allZoosSection').style.display = 'block';
         }
     </script>
 </body>
