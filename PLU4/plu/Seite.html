@@ -10,40 +10,43 @@
     <div class="container">
         <h1>Zoo Informationen</h1>
 
+        <!-- Section for displaying all zoos -->
         <div class="section">
             <div class="section-header">Alle Zoos</div>
             <div class="section-content" id="allZoos"></div>
         </div>
 
-        <div class="section">
-            <div class="section-header">Zufälliger Zoo</div>
-            <div class="section-content" id="randomZoo"></div>
-        </div>
-
-        <!-- Weitere Abschnitte für weitere Abfragen hinzufügen -->
+        <!-- Additional sections for other queries can be added here -->
 
     </div>
 
     <script>
         window.onload = async function () {
             try {
-                // Alle Zoos abrufen
-                const responseAllZoos = await fetch('http://localhost:3000/zoos');
-                const allZoos = await responseAllZoos.json();
                 const allZoosElement = document.getElementById('allZoos');
-                allZoos.forEach(zoo => {
-                    const p = document.createElement('p');
-                    p.textContent = `Land: ${zoo.land}, Stadt: ${zoo.stadt}, Adresse: ${zoo.adresse}, Baujahr: ${zoo.baujahr}`;
-                    allZoosElement.appendChild(p);
-                });
 
-                // Zufälligen Zoo abrufen
-                const responseRandomZoo = await fetch('http://localhost:3000/zoos/random');
-                const randomZoo = await responseRandomZoo.json();
-                const randomZooElement = document.getElementById('randomZoo');
-                randomZooElement.innerHTML = `<p>Land: ${randomZoo.land}, Stadt: ${randomZoo.stadt}, Adresse: ${randomZoo.adresse}, Baujahr: ${randomZoo.baujahr}</p>`;
+                // Fetch all zoos data
+                const responseAllZoos = await fetch('http://localhost:3000/zoos');
+                if (!responseAllZoos.ok) {
+                    throw new Error('Failed to fetch zoos');
+                }
+                const allZoosData = await responseAllZoos.json();
+
+                // Display zoos information
+                if (allZoosData.length === 0) {
+                    allZoosElement.textContent = 'Keine Zoos gefunden.';
+                } else {
+                    allZoosData.forEach(zoo => {
+                        const zooInfo = document.createElement('p');
+                        zooInfo.innerHTML = `<span class="label">Land:</span> ${zoo.land}, <span class="label">Stadt:</span> ${zoo.stadt}, <span class="label">Adresse:</span> ${zoo.adresse}, <span class="label">Baujahr:</span> ${zoo.baujahr.substring(zoo.baujahr.length - 4)}`;
+                        allZoosElement.appendChild(zooInfo);
+                    });
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
+                const errorElement = document.createElement('p');
+                errorElement.textContent = 'Fehler beim Abrufen der Daten. Bitte versuchen Sie es später erneut.';
+                allZoosElement.appendChild(errorElement);
             }
         }
     </script>
