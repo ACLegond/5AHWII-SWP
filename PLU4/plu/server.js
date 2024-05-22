@@ -6,13 +6,16 @@ const app = express();
 const port = 3000;
 
 // Middleware to enable CORS
+
+app.set('view engine', 'ejs');
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
 
-app.get('/zoos', async (req, res) => {
+app.get('/zoo', async (req, res) => {
     try {
         const zoos = await prisma.zoo.findMany();
         res.json(zoos);
@@ -22,13 +25,13 @@ app.get('/zoos', async (req, res) => {
     }
 });
 
-app.get('/zoos/:id', async (req, res) => {
+app.get('/zoo/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const zoo = await prisma.zoo.findUnique({ where: { id } });
+        const zo = await prisma.zoo.findUnique({ where: { id } });
         if (!zoo) {
             res.status(404).json({ error: 'Zoo not found' });
-            return;
+            return res.render('details', {zoo: zo});
         }
         res.json(zoo);
     } catch (error) {
