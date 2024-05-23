@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amins Zoos</title>
+    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+    <div class="container">
+    <h2>Challakhi's Zoos</h2>
+    <ul>
+        <% zoos.forEach(zoo => { %>
+        <li>
+            <a href="#" hx-get="/zoo/<%= zoo.id %>" hx-target="#details">
+                <%= `Land: ${zoo.land} Stadt: ${zoo.stadt} Adresse: ${zoo.adresse} (${zoo.baujahr})` %>
+            </a>
+            <% if(zoo.baujahr < 1950) { %>
+                <span> sehr alt</span>
+            <% } else { %>
+                <span> sehr jung</span>
+            <% } %>
+        </li>
+        <% }) %>
+    </ul>
+    </div>
+    <div id="details">
+     
+    </div>
+    <h2>Neuen Zoo hinzufügen</h2>
+    <form action="/addzoo" method="POST">
+        <label for="land">Land:</label>
+        <input type="text" id="land" name="land"><br><br>
+        <label for="stadt">Stadt:</label>
+        <input type="text" id="stadt" name="stadt"><br><br>
+        <label for="adresse">Adresse:</label>
+        <input type="text" id="adresse" name="adresse"><br><br>
+        <label for="baujahr">Baujahr:</label>
+        <input type="number" id="baujahr" name="baujahr"><br><br>
+        <button type="submit">Zoo hinzufügen</button>
+    </form>
+</body>
+</html>

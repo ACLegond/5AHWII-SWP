@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo Details</title>
+    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+</head>
+<body>
+    <h2>Details for <%= zoo.name %></h2>
+    <p>Land: <%= zoo.land %></p>
+    <p>Stadt: <%= zoo.stadt %></p>
+    <p>Adresse: <%= zoo.adresse %></p>
+    <p>Baujahr: <%= zoo.baujahr %></p>
+    <h3>Abteilungen:</h3>
+    <ul>
+        <% zoo.abteilungen.forEach(abteilung => { %>
+            <li>
+                <%= abteilung.name %>
+                <button hx-post="/zoo/<%= zoo.id %>/removeAbteilung" hx-vals='{ "name": "<%= abteilung.name %>" }' hx-swap="outerHTML">Entfernen</button>
+            </li>
+        <% }) %>
+    </ul>
+
+    <h3>Neue Abteilung hinzufügen</h3>
+    <form hx-post="/zoo/<%= zoo.id %>/addAbteilung" hx-target="#abteilungen-list" hx-swap="innerHTML">
+        <label for="name">Name der Abteilung:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Hinzufügen</button>
+    </form>
+</body>
+</html>
