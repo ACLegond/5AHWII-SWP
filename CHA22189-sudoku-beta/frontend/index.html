@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sudoku Solver</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/sudoku.js" defer></script>
+    <title>Sudoku Solver</title>
 </head>
 <body>
+    <h1>Sudoku Solver</h1> <!-- Titel oben -->
     <div class="container">
-        <h1>Sudoku Solver</h1>
-        <label for="sudokuSelect">Wähle ein Sudoku:</label>
-        <select id="sudokuSelect">
-            <option value="">-- Bitte wählen --</option>
-        </select>
-        <button id="loadSudoku">Laden</button>
-        <button id="solveSudoku">Lösen</button> <!-- Neuer Button zum Lösen -->
-
-        <div id="sudokuGrid"></div>
+        <div id="sudokuGrid"></div> <!-- Sudoku Grid -->
+        <div id="controls">
+            <div id="controlBox">
+                <select id="sudokuSelect">
+                    <option value="">Wähle ein Sudoku</option>
+                </select>
+                <button id="solveSudoku">Lösen</button>
+                <div id="recursionDepthDisplay">Rekursionstiefe: 0</div> <!-- Hier die Rekursionstiefe anzeigen -->
+            </div>
+        </div>
     </div>
+    <script src="js/sudoku.js"></script>
 </body>
 </html>

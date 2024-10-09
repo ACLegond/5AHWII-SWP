@@ -1,27 +1,103 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column; /* Vertikale Anordnung */
+    align-items: center; /* Zentriert den Inhalt horizontal */
+    margin: 0;
+}
+
+h1 {
+    margin: 20px 0; /* Abstand um den Titel herum */
+    text-align: center; /* Titel zentrieren */
 }
 
 .container {
-    width: 300px;
-    margin: 0 auto;
-    text-align: center;
+    display: flex; /* Flexbox für die Container */
+    justify-content: center; /* Zentriert den Inhalt horizontal */
+    align-items: flex-start; /* Oben ausrichten */
+    width: 100%; /* Breite des Containers */
 }
 
 #sudokuGrid {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    grid-gap: 2px;
-    margin-top: 20px;
+    grid-template-columns: repeat(9, 50px); /* Breite der Zellen */
+    grid-template-rows: repeat(9, 50px); /* Höhe der Zellen */
+    gap: 0; /* Kein Abstand zwischen den Zellen */
+    margin: 20px; /* Abstand für die Mitte */
 }
 
 .cell {
-    width: 30px;
-    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #000;
-    font-size: 18px;
-    font-weight: bold;
+    background-color: white; /* Hintergrundfarbe der Zellen */
+    border: 1px solid #ccc; /* Dünner Rahmen für die Zellen */
+    font-size: 20px; /* Schriftgröße der Zahlen */
+    width: 50px; /* Breite der Zellen */
+    height: 50px; /* Höhe der Zellen */
+    transition: background-color 0.3s; /* Sanfte Übergänge */
+}
+
+/* Dickere Linien für die 3x3-Gitter */
+.cell:nth-child(3n) {
+    border-right: 2px solid black; /* Dicke Linie für die rechte Seite */
+}
+
+.cell:nth-child(n+1):nth-child(-n+9) {
+    border-top: 2px solid black; /* Dicke Linie für die obere Seite */
+}
+
+/* Hinzufügen dicker Linien für die unteren 3x3-Zellen */
+.cell:nth-child(27),
+.cell:nth-child(28),
+.cell:nth-child(29) {
+    border-bottom: 2px solid black; /* Dicke Linie für die untere Seite */
+}
+
+.cell:nth-child(6n) {
+    border-right: 2px solid black; /* Dicke Linie für die rechte Seite jeder 3x3-Box */
+}
+
+.cell:nth-child(n + 19) {
+    border-bottom: 2px solid black; /* Dicke Linie für die untere Seite der letzten 3x3-Box */
+}
+
+.cell:nth-child(n + 10):nth-child(-n + 18) {
+    border-bottom: 2px solid black; /* Dicke Linie für die untere Seite der zweiten 3x3-Box */
+}
+
+.cell:hover {
+    background-color: #e9e9e9; /* Hover-Effekt für die Zellen */
+}
+
+#controls {
+    display: flex;
+    flex-direction: column; /* Vertikale Anordnung der Steuerelemente */
+    align-items: flex-start; /* Links ausrichten */
+    margin-left: 20px; /* Abstand nach links für die Steuerbox */
+}
+
+#sudokuSelect {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px; /* Schriftgröße des Dropdowns */
+}
+
+#solveSudoku {
+    padding: 10px 20px;
+    font-size: 16px; /* Schriftgröße des Buttons */
+    cursor: pointer;
+}
+
+#controlBox {
+    background-color: white; /* Hintergrundfarbe der Box */
+    padding: 20px; /* Innenabstand der Box */
+    border: 1px solid #ccc; /* Rahmen der Box */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Schatten für die Box */
+}
+
+#recursionDepthDisplay {
+    margin-top: 10px; /* Abstand nach oben */
+    font-size: 16px; /* Schriftgröße */
 }
