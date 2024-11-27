@@ -1,0 +1,1 @@
+Select 'name', 'id' FROM Customers As c LEFT JOIN Orders As a ON c.id != a.id

@@ -1,0 +1,1 @@
+Select NOT DISTINCT 'email', FROM PERSON;
